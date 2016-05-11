@@ -1,0 +1,22 @@
+{
+  "name": "hub.infotel.io",
+  "description": "Infotel hub API",
+  "version": "0.1.0",
+  "author": {
+    "name": "Alexis Robin",
+    "email": "robinalexis@outlook.fr"
+  },
+
+  "keywords": [
+    "hub",
+    "api"
+  ],
+
+  "dependencies": {
+    "express": "~4.13.3",
+    "body-parser": "~1.14.2",
+    "sequelize": "~3.23.0",
+    "mysql": "~2.10.2"
+  }
+
+}
