@@ -1,22 +1,31 @@
 {
-  "name": "hub.infotel.io",
-  "description": "Infotel hub API",
+  "name": "api.goodway.io",
+  "description": "Goodway API",
   "version": "0.1.0",
   "author": {
     "name": "Alexis Robin",
-    "email": "robinalexis@outlook.fr"
+    "email": "alexis@goodway.io"
   },
 
   "keywords": [
-    "hub",
+    "goodway",
     "api"
   ],
 
   "dependencies": {
     "express": "~4.13.3",
     "body-parser": "~1.14.2",
-    "sequelize": "~3.23.0",
-    "mysql": "~2.10.2"
+    "morgan": "~1.6.1",
+    "crypto": "~0.0.3",
+    "fs": "~0.0.2",
+    "jsonwebtoken": "~5.5.4",
+    "node-uber": "~0.0.6",
+    "path": "~0.12.7",
+    "pg": "~4.4.3",
+    "pg-hstore": "~2.3.2",
+    "sequelize": "~3.17.1",
+    "dotenv": "~1.2.0",
+    "navitia": "~1.0.0"
   }
 
 }

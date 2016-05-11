@@ -1,0 +1,27 @@
+{
+  "token": {
+	"secret": "gooodwayyyyyyyyyyyyy"
+ },
+ "alpha": {
+    "username": "goodway_alpha",
+    "password": null,
+    "database": "goodway_alpha",
+    "host": "178.62.118.19",
+    "dialect": "postgres",
+    "ssl": true
+  },
+  "beta": {
+    "username": "goodway_beta",
+    "password": null,
+    "database": "goodway_beta",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "goodway_prod",
+    "password": null,
+    "database": "goodway_prod",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
