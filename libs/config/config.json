@@ -1,0 +1,12 @@
+{
+    "token": {
+       "secret": "vffnezfnz"
+     },
+     "database": {
+        "username": "root",
+        "password": null,
+        "database": "infotel_hub",
+        "host": "localhost",
+        "dialect": "mysql"
+      }
+}

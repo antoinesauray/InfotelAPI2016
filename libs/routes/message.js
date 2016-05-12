@@ -2,8 +2,6 @@
 var express = require('express');
 var router  = express.Router();
 var jwt    = require('jsonwebtoken');
-var env       = process.env.NODE_ENV || "token";
-var config    = require(__dirname + '/../config/config.json')[env];
 var exec = require('child_process').exec;
 
 router.get('/post', function(req, res) {
@@ -13,7 +11,7 @@ router.get('/post', function(req, res) {
 	var attachment_type = 1;
 	var attachment_url = null;
 	var topic = req.query.topic;
-	var cmd = 'node ./infotel-gcm/scripts/topic2.js '+type+' '+sender_id+' '+content+' '+attachment_type+' '+attachment_url+' '+topic;		
+	var cmd = 'node ./infotel-gcm/scripts/topic2.js '+type+' '+sender_id+' '+content+' '+attachment_type+' '+attachment_url+' '+topic;
 	console.log(cmd);
 	exec(cmd, function(error, stdout, stderr) {
 	// command output is in stdout
