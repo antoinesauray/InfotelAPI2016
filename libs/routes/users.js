@@ -5,6 +5,7 @@ var users = require('../models').users;
 var router  = express.Router();
 module.exports = router;
 
+
 router.use(function(req, res, next) {
     // log each request to the console
     console.log(req.method, req.url);
@@ -15,7 +16,7 @@ router.use(function(req, res, next) {
 
 .get('/', function (req, res) {
         console.log(req);
-        res.send("Some stats informations");
+        res.send("users routes on !");
 })
 
 .post('/add', function (req, res) {
@@ -60,7 +61,9 @@ function loadUser(req, res, next) {
   }
 };
 
-router.route('/:user_id').get(loadUser, function(req, res) {
+// :id
+router.route('/:user_id')
+.get(loadUser, function(req, res) {
   	if(req.user){
       res.status(200).send({
          message: 'User found',
@@ -79,11 +82,17 @@ router.route('/:user_id').get(loadUser, function(req, res) {
         var user = req.user;
         if(data.firstname) user.firstname = data.firstname;
         if(data.lastname) user.lastname = data.lastname;
+        if(data.mail) user.mail = data.mail;
         user.save().then(function(user) {
           res.status(200).send({
              message: 'User update',
              user: user
           });
+        }, function(err) {
+            res.status(409).send({
+               message: 'Failed to update user',
+               error: err
+            });
         });
     } else {
       res.status(200).send({

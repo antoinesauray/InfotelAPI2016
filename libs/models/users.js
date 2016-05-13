@@ -20,9 +20,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     mail: {
             type: DataTypes.STRING,
+            unique: true,
             allowNull: false,
             validate: {
-              notEmpty: true
+              notEmpty: true,
+              isEmail: true
             }
     },
     password: {
