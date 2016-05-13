@@ -18,8 +18,8 @@ router.use(function(req, res, next) {
         res.send("Some stats informations");
 })
 
-.get('/add', function (req, res) {
-    var data = req.query;
+.post('/add', function (req, res) {
+    var data = req.body;
 
     var hashPassword = crypto.createHash("sha256").update(data.password, "utf8").digest("base64");
 
@@ -31,12 +31,12 @@ router.use(function(req, res, next) {
          password: hashPassword
       }).save()
       .then(function(user) {
-          res.json({
+          res.status(201).send({
              message: 'User created',
              user: user
           });
       }, function(err) {
-          res.json({
+          res.status(409).send({
              message: 'Failed to create user',
              error: err
           });
@@ -45,8 +45,8 @@ router.use(function(req, res, next) {
 
 .get('/all', function (req, res) {
     users.findAll().then(function(users) {
-      res.json({ users: users});
-    })
+      res.status(200).send({ users: users});
+    });
 });
 
 router.route('/:user_id').get(function(req, res) {
@@ -55,14 +55,9 @@ router.route('/:user_id').get(function(req, res) {
           id: req.params.user_id
         }
     }).then(function(user) {
-          res.json({
+          res.status(200).send({
              message: 'User found',
              user: user
-          });
-    }, function(err) {
-          res.json({
-             message: 'Faild to found user',
-             error: err
           });
     });
 })

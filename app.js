@@ -27,4 +27,4 @@ app.get('/', function(req, res) {
 });
 app.use('/api/message', require('./libs/routes/message'));
 app.use('/api/users', require('./libs/routes/users'));
-app.use('/api/authentication', require('./libs/routes/authentication'));
+app.use('/api/auth', require('./libs/routes/auth'));

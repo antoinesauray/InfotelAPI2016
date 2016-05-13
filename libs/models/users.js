@@ -6,19 +6,31 @@ module.exports = function(sequelize, DataTypes) {
   {
     firstname: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+              notEmpty: true
+            }
     },
     lastname: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+              notEmpty: true
+            }
     },
     mail: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+              notEmpty: true
+            }
     },
     password: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+              notEmpty: true
+            }
     },
     token: {
             type: DataTypes.STRING,

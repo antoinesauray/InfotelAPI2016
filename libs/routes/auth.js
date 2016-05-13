@@ -14,8 +14,8 @@ router.use(function(req, res, next) {
     next();
 })
 
-.get('/', function (req, res) {
-  var data = req.query;
+.post('/', function (req, res) {
+  var data = req.body;
   var hashPassword = crypto.createHash("sha256").update(data.password, "utf8").digest("base64");
 
   users.find({
@@ -28,22 +28,13 @@ router.use(function(req, res, next) {
 
             // token creation
             var token = jwt.sign({id: user.id}, config.secret, {expiresIn: 1440});
-            res.json({
-               message: 'User found',
+            res.status(200).send({
                user: user,
                token: token
             });
 
         } else {
-            res.json({
-               message: 'User not found',
-               error: 'User not found'
-            });
+            res.status(401).end();
         }
-  }, function(err) {
-        res.json({
-           message: 'Faild to found user',
-           error: err
-        });
   });
 })
