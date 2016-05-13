@@ -49,15 +49,45 @@ router.use(function(req, res, next) {
     });
 });
 
-router.route('/:user_id').get(function(req, res) {
-  	users.find({
-        where: {
-          id: req.params.user_id
-        }
-    }).then(function(user) {
+function loadUser(req, res, next) {
+  if (req.params.user_id) {
+    users.findById(req.params.user_id).then(function(user) {
+      req.user = user;
+      next();
+    });
+  } else{
+    next();
+  }
+};
+
+router.route('/:user_id').get(loadUser, function(req, res) {
+  	if(req.user){
+      res.status(200).send({
+         message: 'User found',
+         user: req.user
+      });
+    } else {
+      res.status(200).send({
+         message: 'User not found',
+      });
+    }
+})
+
+.post(loadUser, function(req, res) {
+    var data = req.body;
+    if(req.user){
+        var user = req.user;
+        if(data.firstname) user.firstname = data.firstname;
+        if(data.lastname) user.lastname = data.lastname;
+        user.save().then(function(user) {
           res.status(200).send({
-             message: 'User found',
+             message: 'User update',
              user: user
           });
-    });
+        });
+    } else {
+      res.status(200).send({
+         message: 'User not found',
+      });
+    }
 })
