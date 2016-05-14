@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var exec = require('child_process').exec;
 var channels = require('../models').channels;
 var messages = require('../models').messages;
+var users = require('../models').users;
 
 var router  = express.Router();
 module.exports = router;
@@ -36,24 +37,27 @@ router.use(function(req, res, next) {
           // send message with server
           channels.findById(message.channel_id).then(function(channel) {
               var topic = channel.name;
-              var cmd = 'node ./infotel-gcm/scripts/topic.js ' + message.user_id + ' \"' + message.content + '\" ' + topic + ' ' + message.avatar + ' ' + message.attachment_type + ' ';
-              if(message.attachment != undefined) cmd += message.attachment;
+              users.findById(message.user_id).then(function(user) {
+                    var avatar = user.avatar;
 
-              console.log(cmd);
-              exec(cmd, function(error, stdout, stderr) {
-                  if(error){
-                    res.status(201).send({
-                          info: 'Message created, but can\'t be send',
-                          out: stderr,
-                          message: message
+                    var cmd = 'node ./infotel-gcm/scripts/topic.js ' + message.user_id + ' \"' + message.content + '\" ' + topic + ' ' + avatar + ' ' + message.attachment_type + ' ';
+                    if(message.attachment != undefined) cmd += message.attachment;
+                    console.log(cmd);
+                    exec(cmd, function(error, stdout, stderr) {
+                        if(error){
+                          res.status(201).send({
+                                info: 'Message created, but can\'t be send',
+                                out: stderr,
+                                message: message
+                          });
+                        }
+                        // command output is in stdout
+                        res.status(201).send({
+                              info: 'Message created & send',
+                              out: stdout,
+                              message: message
+                        });
                     });
-                  }
-                  // command output is in stdout
-                  res.status(201).send({
-                        info: 'Message created & send',
-                        out: stdout,
-                        message: message
-                  });
               });
           });
       }, function(err) {

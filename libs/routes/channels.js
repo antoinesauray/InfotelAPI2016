@@ -25,7 +25,8 @@ router.use(function(req, res, next) {
 
     channels.build(
       {
-         name: data.name
+         name: data.name,
+         avatar: data.avatar
       }).save()
       .then(function(channel) {
           res.status(201).send({
@@ -33,7 +34,7 @@ router.use(function(req, res, next) {
              channel: channel
           });
       }, function(err) {
-          res.status(409).send({
+          res.status(400).send({
              message: 'Failed to create channel',
              error: err
           });
@@ -84,7 +85,7 @@ router.route('/:channel_id')
              channel: channel
           });
         }, function(err) {
-            res.status(409).send({
+            res.status(400).send({
                message: 'Failed to update channel',
                error: err
             });
@@ -101,20 +102,14 @@ router.route('/:channel_id')
 router.route('/:channel_id/messages')
 .get(function(req, res) {
     var channel_id = req.params.channel_id;
-  	if(channel_id){
       messages.findAll({
         where: {
           channel_id: channel_id
         }
-      }).then(function(message) {
+      }).then(function(messages) {
           res.status(200).send({
              message: 'Message found for channel: ' + channel_id,
              messages: messages
           });
       });
-    } else {
-      res.status(200).send({
-         message: 'No message found for channel: ' + channel_id,
-      });
-    }
 });

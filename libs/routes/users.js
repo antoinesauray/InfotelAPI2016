@@ -1,5 +1,6 @@
 var express = require('express');
 var crypto = require('crypto');
+var conversations = require('../models').conversations;
 var subscriptions = require('../models').subscriptions;
 var users = require('../models').users;
 
@@ -104,11 +105,10 @@ router.route('/:user_id')
     }
 })
 
-// :id
-router.route('/:user_id/channels')
+// :id/channels/
+router.route('/:user_id/channels/')
 .get(function(req, res) {
     var user_id = req.params.user_id;
-  	if(user_id){
       subscriptions.findAll({
         where: {
           user_id: user_id,
@@ -119,9 +119,27 @@ router.route('/:user_id/channels')
              subscriptions: subscriptions
           });
       });
-    } else {
-      res.status(200).send({
-         message: 'No channel subscriptions found for user: ' + user_id,
+});
+
+// :id/conversations/
+router.route('/:user_id/conversations/')
+.get(function(req, res) {
+    var user_id = req.params.user_id;
+      conversations.findAll({
+        where: {
+          $or: [
+            {
+              user1_id: user_id
+            }, {
+              user2_id: user_id
+            }
+          ]
+        }
+      }).then(function(conversations) {
+
+          res.status(200).send({
+             message: 'User\'s (' + user_id + ') conversations',
+             conversations: conversations
+          });
       });
-    }
 });

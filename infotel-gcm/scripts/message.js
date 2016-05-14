@@ -2,18 +2,18 @@ var gcm = require('../lib/node-gcm');
 
 var message = new gcm.Message();
 
-var type = process.argv[3];
-var sender_id = process.argv[4];
-var content = process.argv[5];
+var sender_id = process.argv[2];
+var content = process.argv[3];
+var token = process.argv[4];
+var avatar = process.argv[5];
 var attachment_type = process.argv[6];
-var attachment_url = process.argv[7];
-var token = process.argv[8];
+var attachment = process.argv[7];
 
-message.addData('type', type);
 message.addData('sender_id', sender_id);
 message.addData('content', content);
+message.addData('avatar', avatar);
 message.addData('attachment_type', attachment_type);
-message.addData('attachment', attachment_url);
+message.addData('attachment', attachment);
 //message.addData('date', '20160511');
 
 //Add your mobile device registration tokens here
