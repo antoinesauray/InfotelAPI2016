@@ -39,7 +39,7 @@ router.use(function(req, res, next) {
                   var token = receiver.token;
                   users.findById(data.sender_id).then(function(sender) {
                         var avatar = sender.avatar;
-                        var cmd = 'node ./infotel-gcm/scripts/topic.js ' + data.sender_id + ' \"' + private_message.content + '\" ' + token + ' ' + avatar + ' ' + private_message.attachment_type + ' ';
+                        var cmd = 'node ./infotel-gcm/scripts/message.js ' + data.sender_id + ' \"' + private_message.content + '\" ' + token + ' ' + avatar + ' ' + private_message.attachment_type + ' ';
                         if(private_message.attachment != undefined) cmd += private_message.attachment;
 
                         console.log(cmd);
