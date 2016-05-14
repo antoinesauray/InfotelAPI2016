@@ -1,5 +1,7 @@
 var express = require('express');
 var crypto = require('crypto');
+var conversations = require('../models').conversations;
+var subscriptions = require('../models').subscriptions;
 var users = require('../models').users;
 
 var router  = express.Router();
@@ -29,7 +31,8 @@ router.use(function(req, res, next) {
          firstname: data.firstname,
          lastname: data.lastname,
          mail: data.mail,
-         password: hashPassword
+         password: hashPassword,
+         token: data.token
       }).save()
       .then(function(user) {
           res.status(201).send({
@@ -37,7 +40,7 @@ router.use(function(req, res, next) {
              user: user
           });
       }, function(err) {
-          res.status(409).send({
+          res.status(400).send({
              message: 'Failed to create user',
              error: err
           });
@@ -83,13 +86,14 @@ router.route('/:user_id')
         if(data.firstname) user.firstname = data.firstname;
         if(data.lastname) user.lastname = data.lastname;
         if(data.mail) user.mail = data.mail;
+        if(data.token) user.token = data.token;
         user.save().then(function(user) {
           res.status(200).send({
              message: 'User update',
              user: user
           });
         }, function(err) {
-            res.status(409).send({
+            res.status(400).send({
                message: 'Failed to update user',
                error: err
             });
@@ -100,3 +104,42 @@ router.route('/:user_id')
       });
     }
 })
+
+// :id/channels/
+router.route('/:user_id/channels/')
+.get(function(req, res) {
+    var user_id = req.params.user_id;
+      subscriptions.findAll({
+        where: {
+          user_id: user_id,
+        }
+      }).then(function(subscriptions) {
+          res.status(200).send({
+             message: 'User\'s (' + user_id + ') channel subscriptions',
+             subscriptions: subscriptions
+          });
+      });
+});
+
+// :id/conversations/
+router.route('/:user_id/conversations/')
+.get(function(req, res) {
+    var user_id = req.params.user_id;
+      conversations.findAll({
+        where: {
+          $or: [
+            {
+              user1_id: user_id
+            }, {
+              user2_id: user_id
+            }
+          ]
+        }
+      }).then(function(conversations) {
+
+          res.status(200).send({
+             message: 'User\'s (' + user_id + ') conversations',
+             conversations: conversations
+          });
+      });
+});
