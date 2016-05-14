@@ -12,6 +12,13 @@ module.exports = function(sequelize, DataTypes) {
               notEmpty: true
             }
     },
+    full_name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+              notEmpty: true
+            }
+    },
     avatar: {
               type: DataTypes.STRING,
               validate: {

@@ -1,6 +1,7 @@
 var express = require('express');
 var crypto = require('crypto');
 var conversations = require('../models').conversations;
+var inscriptions = require('../models').inscriptions;
 var subscriptions = require('../models').subscriptions;
 var users = require('../models').users;
 
@@ -140,6 +141,23 @@ router.route('/:user_id/conversations/')
           res.status(200).send({
              message: 'User\'s (' + user_id + ') conversations',
              conversations: conversations
+          });
+      });
+});
+
+// :id/inscriptions/
+router.route('/:user_id/inscriptions/')
+.get(function(req, res) {
+    var user_id = req.params.user_id;
+      inscriptions.findAll({
+        where: {
+            user_id: user_id
+        }
+      }).then(function(inscriptions) {
+
+          res.status(200).send({
+             message: 'User\'s (' + user_id + ') inscriptions',
+             inscriptions: inscriptions
           });
       });
 });
