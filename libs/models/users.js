@@ -34,6 +34,12 @@ module.exports = function(sequelize, DataTypes) {
               notEmpty: true
             }
     },
+    avatar: {
+            type: DataTypes.STRING,
+            validate: {
+              notEmpty: true
+            }
+    },
     token: {
             type: DataTypes.STRING,
             defaultValue: ""

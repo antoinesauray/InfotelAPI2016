@@ -16,8 +16,8 @@ models.sequelize.sync().then(function(){
     console.log("Hub API listening at http://%s:%s", host, port)
   });
 
-}).catch(function(error) {
-  "Database connection issue: " + error;
+}, function(err) {
+    console.log("Database connection issue: " + err);
 });
 
 // ----- Routes
@@ -28,3 +28,5 @@ app.get('/', function(req, res) {
 app.use('/api/message', require('./libs/routes/message'));
 app.use('/api/users', require('./libs/routes/users'));
 app.use('/api/auth', require('./libs/routes/auth'));
+app.use('/api/channels', require('./libs/routes/channels'));
+app.use('/api/messages', require('./libs/routes/messages'));
