@@ -109,7 +109,7 @@ router.route('/:channel_id/messages')
       }).then(function(message) {
           res.status(200).send({
              message: 'Message found for channel: ' + channel_id,
-             message: message
+             messages: messages
           });
       });
     } else {

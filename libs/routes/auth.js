@@ -2,7 +2,7 @@ var express = require('express');
 var crypto = require('crypto');
 var jwt    = require('jsonwebtoken');
 var users = require('../models').users;
-var config    = require(__dirname + '/..\\config\\config.json')["token"];
+var config    = require(__dirname + '/../config/config.json')["token"];
 var router  = express.Router();
 module.exports = router;
 

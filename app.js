@@ -25,8 +25,8 @@ app.get('/', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.json({ success: true, message: 'API on !'});
 });
-app.use('/api/message', require('./libs/routes/message'));
 app.use('/api/users', require('./libs/routes/users'));
 app.use('/api/auth', require('./libs/routes/auth'));
 app.use('/api/channels', require('./libs/routes/channels'));
 app.use('/api/messages', require('./libs/routes/messages'));
+app.use('/api/subscriptions', require('./libs/routes/subscriptions'));
