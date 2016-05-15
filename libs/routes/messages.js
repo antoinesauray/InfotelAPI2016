@@ -40,7 +40,7 @@ router.use(function(req, res, next) {
               users.findById(message.user_id).then(function(user) {
                     var avatar = user.avatar;
 
-                    var cmd = 'node ./infotel-gcm/scripts/topic.js ' + message.user_id + ' \"' + message.content + '\" ' + topic + ' ' + avatar + ' ' + message.attachment_type + ' ';
+                    var cmd = 'node ./infotel-gcm/scripts/topic.js ' + message.user_id + ' ' + message.channel_id + ' \"' + message.content + '\" ' + topic + ' ' + avatar + ' ' + message.attachment_type + ' ';
                     if(message.attachment != undefined) cmd += message.attachment;
                     console.log(cmd);
                     exec(cmd, function(error, stdout, stderr) {

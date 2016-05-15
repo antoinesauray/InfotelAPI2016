@@ -105,7 +105,7 @@ router.route('/:channel_id/messages')
       messages.findAll({
         where: {
           channel_id: channel_id
-        }
+        },order: [['createdAt', 'ASC']]
       }).then(function(messages) {
           res.status(200).send({
              message: 'Message found for channel: ' + channel_id,
@@ -113,3 +113,4 @@ router.route('/:channel_id/messages')
           });
       });
 });
+

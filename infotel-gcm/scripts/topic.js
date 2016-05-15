@@ -3,11 +3,12 @@ var gcm = require('../lib/node-gcm');
 var message = new gcm.Message();
 
 var sender_id = process.argv[2];
-var content = process.argv[3];
-var topic = "/topics/"+process.argv[4];
-var avatar = process.argv[5];
-var attachment_type = process.argv[6];
-var attachment = process.argv[7];
+var channel_id = process.argv[3];
+var content = process.argv[4];
+var topic = "/topics/"+process.argv[5];
+var avatar = process.argv[6];
+var attachment_type = process.argv[7];
+var attachment = process.argv[8];
 
 console.log(topic);
 
@@ -15,6 +16,7 @@ message.addNotification('title', 'Infotel');
 message.addNotification('body', 'Nouveau message');
 message.addNotification('tag', topic);
 message.addData('sender_id', sender_id);
+message.addData('channel_id', channel_id);
 message.addData('avatar', avatar);
 message.addData('content', content);
 message.addData('attachment_type', attachment_type);
