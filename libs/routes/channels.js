@@ -26,6 +26,7 @@ router.use(function(req, res, next) {
     channels.build(
       {
          name: data.name,
+         full_name: data.full_name,
          avatar: data.avatar
       }).save()
       .then(function(channel) {
@@ -78,6 +79,7 @@ router.route('/:channel_id')
     if(req.channel){
         var channel = req.channel;
         if(data.name) channel.name = data.name;
+        if(data.full_name) channel.full_name = data.full_name;
 
         channel.save().then(function(channel) {
           res.status(200).send({
