@@ -3,10 +3,10 @@
        "secret": "vffnezfnz"
      },
      "database": {
-        "username": "root",
-        "password": null,
+        "username": "infotel_hub",
+        "password": "infotel_hub",
         "database": "infotel_hub",
         "host": "localhost",
-        "dialect": "mysql"
+        "dialect": "postgres"
       }
 }
