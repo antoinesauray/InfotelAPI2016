@@ -51,3 +51,4 @@ app.use('/api/inscriptions', require('./libs/routes/inscriptions'));
 app.use('/api/messages', require('./libs/routes/messages'));
 app.use('/api/private_messages', require('./libs/routes/private_messages'));
 app.use('/api/subscriptions', require('./libs/routes/subscriptions'));
+app.use('/api/upload', require('./libs/routes/upload'));

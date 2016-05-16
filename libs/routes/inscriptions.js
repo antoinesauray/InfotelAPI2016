@@ -15,8 +15,24 @@ router.use(function(req, res, next) {
 })
 
 .get('/', function (req, res) {
-        console.log(req);
-        res.send("inscriptions routes on !");
+    var user_id = req.query.user_id;
+    var event_id = req.query.event_id;
+      inscriptions.findAll({
+        where: {
+          $and: [
+            {
+              user_id: user_id
+            }, {
+              event_id: event_id
+            }
+          ]
+        }
+      }).then(function(inscriptions) {
+          res.status(200).send({
+             message: 'User\'s (' + user_id + ') inscription for event (' + event_id + ')',
+             inscriptions: inscriptions
+          });
+      });
 })
 
 .post('/add', function (req, res) {
