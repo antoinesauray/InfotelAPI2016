@@ -31,7 +31,15 @@ router.post('/',function(req,res){
       }
       res.status(201).send({
          message: 'File uploaded SUCCEEDED',
-         file: req.file.path
+         file: req.file.filename
       });
   });
+});
+
+router.route('/:filename')
+.get(function(req, res) {
+    var filename = req.params.filename;
+    if(filename){
+        res.sendFile( __dirname + '/../../uploads/' + filename );
+    }
 });
