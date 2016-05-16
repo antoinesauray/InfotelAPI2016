@@ -1,3 +1,3 @@
 node_modules/*
 infotel-gcm/node_modules/*
-libs/config/config.json
+libs/config/*
