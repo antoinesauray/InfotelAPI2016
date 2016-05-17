@@ -3,6 +3,7 @@ var multer  = require('multer')
 var jwt    = require('jsonwebtoken');
 var config    = require(__dirname + '/../config/config.json')["token"];
 var fs        = require('fs');
+var path = require('path');
 var router  = express.Router();
 module.exports = router;
 
@@ -40,6 +41,6 @@ router.route('/:filename')
 .get(function(req, res) {
     var filename = req.params.filename;
     if(filename){
-        res.sendFile( __dirname + '/../../uploads/' + filename );
+        res.sendFile(path.resolve('uploads/' + filename ));
     }
 });
